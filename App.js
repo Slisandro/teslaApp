@@ -1,21 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
+import CarsList from './Component/CarsList/index.js';
+import Header from './Component/Header/index.js';
+import React from "react";
+import { NativeRouter, Switch, Route } from "react-router-native";
+import CarDetails from "./Component/CarDetails/index.js";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <NativeRouter>
+        <View style={styles.container}>
+          <Route path="/" component={Header}/>
+          <Switch>
+            <Route exact path="/" component={CarsList} />
+            <Route exact path="/products/:id" render={({match}) => <CarDetails id={match.params} />} />
+          </Switch>
+        </View>
+      </NativeRouter>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
